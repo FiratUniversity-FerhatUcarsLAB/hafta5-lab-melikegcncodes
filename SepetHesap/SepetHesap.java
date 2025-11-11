@@ -1,7 +1,7 @@
 /*
- * Ad Soyad: [ADINIZI BURAYA YAZIN]
- * Ogrenci No: [OGRENCI NUMARANIZI BURAYA YAZIN]
- * Tarih: [TARIHI BURAYA YAZIN]
+ * Ad Soyad: Melike Gücin
+ * Ogrenci No: 240541081
+ * Tarih: 11.11.2025
  * Aciklama: Gorev 3 - E-Ticaret Sepet Hesaplayici
  *
  * Bu program 3 adet urunun sepet tutarini
@@ -19,37 +19,43 @@ public class SepetHesap {
     // METOT 1: Bir urunun toplam fiyatini hesaplar (fiyat * adet)
     public static double calculateLineTotal(double price, int quantity) {
         // Satir Toplami = fiyat * adet
-        return 0.0; // Degistirin
+        double LineTotal = price * quantity;
+        return LineTotal; // Degistirin
     }
 
     // METOT 2: Sepetteki 3 urunun ara toplamini hesaplar
     public static double calculateSubtotal(double line1, double line2, double line3) {
         // Ara Toplam = urun1 + urun2 + urun3
-        return 0.0; // Degistirin
+        double Subtotal = line1 + line2 + line3;
+        return Subtotal; // Degistirin
     }
 
     // METOT 3: Indirim tutarini hesaplar
     public static double calculateDiscountAmount(double subtotal, double discountPercentage) {
         // Indirim Tutari = araToplam * (indirimYuzdesi / 100)
-        return 0.0; // Degistirin
+        double DiscountAmount = subtotal * (discountPercentage / 100);
+        return DiscountAmount; // Degistirin
     }
 
     // METOT 4: Indirimli fiyati hesaplar (araToplam - indirimTutari)
     public static double applyDiscount(double subtotal, double discountAmount) {
         // Indirimli Toplam = araToplam - indirimTutari
-        return 0.0; // Degistirin
+        double applyDiscount = subtotal - discountAmount;
+        return applyDiscount; // Degistirin
     }
 
     // METOT 5: KDV tutarini hesaplar (indirimliTutar * kdvOrani)
-    public static double calculateVAT(double discountedTotal, double vatRate) {
+    public static double VAT(double discountedTotal, double vatRate) {
         // KDV Tutari = indirimliTutar * VAT_RATE
-        return 0.0; // Degistirin
+        double VAT = discountedTotal * vatRate;
+        return VAT; // Degistirin
     }
 
     // METOT 6: Genel toplami hesaplar (indirimliTutar + kdv + kargo)
     public static double calculateGrandTotal(double discountedTotal, double vatAmount, double shippingFee) {
         // Genel Toplam = indirimliTutar + kdvTutari + kargoUcreti
-        return 0.0; // Degistirin
+        double GrandTotal = discountedTotal + vatAmount + shippingFee;
+        return GrandTotal; // Degistirin
     }
 
     public static void main(String[] args) {
@@ -85,20 +91,25 @@ public class SepetHesap {
 
         // HESAPLAMALARI YAP - Metotlari cagir
         // 1. Urunlerin satis toplamlarini hesapla
-    
+        double line1Total = calculateLineTotal(price1, qty1);
+        double line2Total = calculateLineTotal(price2, qty2);
+        double line3Total = calculateLineTotal(price3, qty3);
 
         // 2. Ara toplami hesapla
+        double subtotal = calculateSubtotal(line1Total, line2Total, line3Total);
 
         // 3. Indirim tutarini hesapla
-      
+        double indirimTutari = calculateDiscountAmount(subtotal, discountPercent);
 
         // 4. Indirimli toplami hesapla
-      
+        double indirimliToplami = applyDiscount(subtotal, indirimTutari);
 
         // 5. KDV tutarini hesapla (Indirimli toplam uzerinden)
-      
+        double KDV = VAT(indirimliToplami, VAT_RATE);
+
 
         // 6. Genel toplami hesapla
+        double genelToplam = calculateGrandTotal(indirimliToplami, KDV,  SHIPPING_FEE);
 
 
         // SONUCLARI YAZDIR
@@ -112,13 +123,13 @@ public class SepetHesap {
         System.out.println("----------------------------------------");
         System.out.printf("Ara Toplam                   : %.2f TL\n", subtotal);
 
-        System.out.printf("\nIndirim Tutari (%%%.0f)         : -%.2f TL\n", discountPercent, discountAmount);
-        System.out.printf("Indirimli Toplam             : %.2f TL\n", discountedTotal);
+        System.out.printf("\nIndirim Tutari (%%%.0f)         : -%.2f TL\n", discountPercent, indirimliToplami );
+        System.out.printf("Indirimli Toplam             : %.2f TL\n", indirimTutari);
 
-        System.out.printf("\nKDV Tutari (%%%.0f)             : +%.2f TL\n", (VAT_RATE * 100), vatAmount);
+        System.out.printf("\nKDV Tutari (%%%.0f)             : +%.2f TL\n", (VAT_RATE * 100), KDV);
         System.out.printf("Kargo Ucreti                 : +%.2f TL\n", SHIPPING_FEE);
         System.out.println("----------------------------------------");
-        System.out.printf("GENEL TOPLAM                 : %.2f TL\n", grandTotal);
+        System.out.printf("GENEL TOPLAM                 : %.2f TL\n", genelToplam);
         System.out.println("========================================");
 
         input.close();
